@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="dam_library_v1.8.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../online news/library/dam_library_v1.8.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
