@@ -19,7 +19,7 @@
   News news = newsDao.findNewsById(newsId);
 
     System.out.println(news.toString());
-    //jffkjshjdhn
+    //new line
 
 %>
 <h1>This is single news page.........</h1>
