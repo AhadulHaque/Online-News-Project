@@ -1,6 +1,8 @@
 <%@ page import="dao.NewsDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="entity.News" %><%--
+<%@ page import="entity.News" %>
+<%@ page import="dao.SubscriberDao" %>
+<%@ page import="entity.Subscriber" %><%--
   Created by IntelliJ IDEA.
   User: naim
   Date: 3/11/2020
@@ -121,7 +123,7 @@
                       <tr>
                           <td><%=i%></td>
                           <td>
-                              <img style="width: 30px; height: 30px;" src="images/upload/<%=news.getImage()%>">
+                              <img style="width: 30px; height: 30px;" src="${pageContext.request.contextPath}/images/upload/<%=news.getImage()%>">
                           </td>
                           <td><%=news.getTitle()%></td>
                           <td><%=news.getDescription()%></td>
@@ -129,8 +131,13 @@
                           <td><%=news.getType()%></td>
                           <td><%=news.getTotalView()%></td>
                           <td>
-                              <a href="javascript:void(0)">Edit</a>
-                              <a href="javascript:void(0)">Delete</a>
+                              <%--<a href="javascript:void(0)">Edit</a>--%>
+                              <form action="/add" method="post">
+                                  <input type="hidden" value="DELETE" name="request_type">
+                                  <input type="hidden" value="<%=news.getId()%>" name="id">
+                                  <button type="submit" >Delete</button>
+                              </form>
+
                           </td>
                       </tr>
                    <%
@@ -141,6 +148,37 @@
         </tbody>
 
 
+
+    </table>
+
+
+
+
+
+    <h5 style="margin-top:30px">Subscriber List:</h5>
+    <table style="margin-top:25px" class="table table-bordered">
+        <thead>
+           <tr>
+               <th>#SL No.</th>
+               <th>Email Address</th>
+           </tr>
+        </thead>
+        <tbody>
+          <%
+              SubscriberDao subscriberDao = new SubscriberDao();
+              List<Subscriber> subscribers = subscriberDao.findAllSubscriber();
+
+              for (int i=0;i<subscribers.size();i++){
+                  Subscriber subscriber = subscribers.get(i);
+                  %>
+                    <tr>
+                        <td><%=(i+1)%></td>
+                        <td><%=subscriber.getEmail()%></td>
+                    </tr>
+                 <%
+              }
+          %>
+        </tbody>
 
     </table>
 
@@ -173,6 +211,7 @@
 
 
 
+                            <input type="hidden" value="ADD" name="request_type">
                             <label for="title">Title:</label>
                             <input type="text" name="title" id="title" class="form-control " placeholder="Enter news title.">
                             <br/>
@@ -190,7 +229,7 @@
                             <br>
 
 
-                            <label for="file">Image:</label>
+                            <label accept="image/**" for="file">Image:</label>
                             <input type="file" name="image" id="file" class="form-control " placeholder="Enter news title.">
                             <br/>
 
