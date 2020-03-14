@@ -186,21 +186,15 @@
             <nav class="navbar">
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="home-style-one.html" class="category01">HOME</a></li>
+                        <li class="active"><a href="/" class="category01">HOME</a></li>
                         <li><a href="category.jsp?type=INTERNATIONAL" class="category03" >INTERNATIONAL </a></li>
                         <li><a href="category.jsp?type=POLITICS" class="category03" >POLITICS </a></li>
                         <li><a href="category.jsp?type=FASHION" class="category04">FASHION</a></li>
                         <li><a href="category.jsp?type=TRAVEL" class="category05">TRAVEL</a></li>
                         <li><a href="category.jsp?type=FOOD" class="category06">FOOD</a></li>
                         <li><a href="category.jsp?type=TECHNOLOGY" class="category07">TECHNOLOGY</a></li>
-                        <li><a href="#" class="category08">ABOUT US</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle category09" data-toggle="dropdown">CONTACT </a>
-                            <ul class="dropdown-menu menu-slide">
-                                <li> </li>
-                                <li></li>
-                            </ul>
-                        </li>
+                        <li><a href="about.jsp" class="category08">ABOUT US</a></li>
+                        <li><a href="contact.jsp" class="category09" >CONTACT</a></li>
                     </ul>
                 </div>
                 <!-- navbar-collapse -->
@@ -247,13 +241,13 @@
                         %>
 
                         <div class="post-style2 wow fadeIn" data-wow-duration="1s">
-                            <a href="javascript:void(0)"><img style="width: 250px; height: 205px" src="<%=n.getImage()%>" alt=""></a>
+                            <a href="javascript:void(0)"><img style="width: 250px; height: 205px" src="images/upload/<%=n.getImage()%>" alt=""></a>
                             <div class="post-style2-detail">
                                 <h3><a href="news.jsp?id=<%=n.getId()%>" title=""><%=n.getTitle()%></a></h3>
                                 <div class="date">
                                     <ul>
                                         <%--<li><img src="<%=n.getImage()%>" class="img-responsive" alt=""></li>--%>
-                                        <li>By <a title="" href="javascript:void(0)"><span>Naim</span></a> --</li>
+                                        <li>By <a title="" href="javascript:void(0)"><span>Admin</span></a> --</li>
                                         <li><a title="" href="#"><%=n.getPublishedDate()%></a> --</li>
                                         <li><a title="" href="#"><span><%=n.getTotalView()%> Views</span></a></li>
                                     </ul>
@@ -277,9 +271,10 @@
 
                 <div class="input-group search-area">
                     <!-- search area -->
-                    <input type="text" class="form-control" placeholder="Search articles here ..." name="q">
+                    <!-- search area -->
+                    <input type="email" id="email" required class="form-control" placeholder="Subscribe to us by email..." name="q">
                     <div class="input-group-btn">
-                        <button class="btn btn-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <button id="subscribe" class="btn btn-search" type="submit"><i class="fa fa-send" aria-hidden="true"></i></button>
                     </div>
                 </div>
                 <!-- social icon -->
@@ -310,14 +305,14 @@
 
                             <div class="box-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.3s">
                                 <div class="img-thumb">
-                                    <a href="#" rel="bookmark"><img class="entry-thumb"
-                                                                    src="<%=news.getImage()%>" alt="" height="80" width="90"></a>
+                                    <a href="news.jsp?id=<%=news.getId()%>" rel="bookmark"><img class="entry-thumb"
+                                                                    src="images/upload/<%=news.getImage()%>" alt="" height="80" width="90"></a>
                                 </div>
                                 <div class="item-details">
                                     <h6 class="sub-category-title bg-color-4">
-                                        <a href="#"><%=news.getType()%></a>
+                                        <a href="news.jsp?id=<%=news.getId()%>"><%=news.getType()%></a>
                                     </h6>
-                                    <h3 class="td-module-title"><a href="#"><%=news.getTitle()%></a></h3>
+                                    <h3 class="td-module-title"><a href="news.jsp?id=<%=news.getId()%>"><%=news.getTitle()%></a></h3>
                                     <div class="post-editor-date">
                                         <!-- post date -->
                                         <div class="post-date">
@@ -440,6 +435,30 @@
     <!-- custom js -->
     <script type="text/javascript" src="js/custom.js"></script>
 
+
+    <script>
+        $(document).ready(function () {
+            //  alert("hello.............");
+            $("#subscribe").click(function () {
+
+                var email = $("#email").val();
+                if(validateEmail(email)){
+                    $.post("subscriber",{email:email}, function (data,status) {
+                        alert("Message : "+data);
+                    });
+                }else{
+                    alert("Invalid email address.")
+                }
+
+            });
+        });
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+    </script>
 
 
 <!-- Mirrored from news365htmllatest.bdtask.com/Demo/DemoNews365/category-style-two.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Mar 2020 19:05:52 GMT -->
